@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+ 
+    <package name="default" extends="struts-default" namespace="/">
+     
+        <!-- 注册拦截器 -->
+        <interceptors>
+            <interceptor name="auth" class="org.struts.interceptor.AuthInterceptor"/>
+            <interceptor-stack name="authStack">
+                <interceptor-ref name="defaultStack"/>
+                <interceptor-ref name="auth"/>
+            </interceptor-stack>
+        </interceptors>
+     
+        <!-- 通过此Action访问后台管理页面 -->
+        <action name="auth">
+            <result>/WEB-INF/view/manager.jsp</result>
+            <result name="login">/login.jsp</result>
+            <interceptor-ref name="authStack"/>
+        </action>
+     
+        <action name="login" class="org.struts.action.LoginAction">
+            <result>/WEB-INF/view/manager.jsp</result>
+            <result name="login">/login.jsp</result>
+        </action>
+    </package>
+ 
+</struts>
